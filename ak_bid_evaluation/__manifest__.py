@@ -27,10 +27,10 @@
     'data': [
         # 'security/purchase_panel_security.xml',
         'security/ir.model.access.csv',
+        'views/purchase_requisition_type.xml',
+        'views/bid_evaluation_template.xml',
         # 'views/purchase_panel.xml',
         # 'views/purchase_requisition.xml',
-        # 'views/purchase_requisition_type.xml',
-        # 'views/bid_evaluation_template.xml',
         # 'wizard/bid_evaluation_wizard.xml',
         # 'views/bid_evaluation.xml',
         # 'views/purchase_order.xml',

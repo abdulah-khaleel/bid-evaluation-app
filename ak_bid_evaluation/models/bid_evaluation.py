@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError, UserError
+
+
+class BidEvaluation(models.Model):
+    _name = 'bid.evaluation'
+    _description = 'Bid/Quotation Evaluation'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    name = fields.Char(string="Title")
+    purchase_requisition_id = fields.Many2one('purchase.requisition', string="Purchase Requisition")
+    po_id = fields.Many2one('purchase.order', 'RFQ')
+    partner_id = fields.Many2one('res.partner',  string="Vendor")
+    deadline = fields.Date(string="Deadline", default = lambda self: self.po_id.date_order)
+    evaluation_guidelines = fields.Text('Evaluation Guidelines')
+    score_limit = fields.Integer('Highest Score')
+    score_avg = fields.Float('Average Score', compute="_compute_score_avg")
+    notes = fields.Text('Notes')
+    checklist_item_ids = fields.One2many('bid.evaluation.checklist','bid_evaluation_id', string="Evaluation Checklist")
+    question_ids = fields.One2many('bid.evaluation.question', 'bid_evaluation_id', string="Bid Evaluation Questions")
+    
+    selection_justification = fields.Text('Selection Justification')
+
+    @api.depends('question_ids.score')
+    def _compute_score_avg(self):
+        for rec in self:
+            scores = rec.question_ids.mapped('score')
+            if len(scores) != 0:
+                rec.score_avg = sum(scores) / len(scores)
+            else:
+                rec.score_avg = 0
+    
+class BidEvaluationQuestion(models.Model):
+    _name = 'bid.evaluation.question'
+    _description = 'Bid Evaluation Question'
+
+    name = fields.Char(string="Question / Factor")
+    score = fields.Integer('Score')
+    remarks = fields.Text('Remarks')
+    bid_evaluation_id = fields.Many2one('bid.evaluation', string="Bid Evaluation")
+
+    @api.constrains('score')
+    def _check_max_score(self):
+        if self.bid_evaluation_id.score_limit:
+            if self.score > self.bid_evaluation_id.score_limit:
+                raise ValidationError(
+                    _(f"The maximum score limit you can provide on each question/factor is {self.bid_evaluation_id.score_limit}."))
+
+class BidEvaluationChecklist(models.Model):
+    _name = 'bid.evaluation.checklist'
+    _description = 'Bid Evaluation Checklist'
+
+    name = fields.Char(string="Item")
+    item_clear = fields.Selection([
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ], string="Available", required=True)
+    bid_evaluation_id = fields.Many2one('bid.evaluation', string="Bid Evaluation")
+
+    

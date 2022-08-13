@@ -12,3 +12,16 @@ class PurchaseRequisition(models.Model):
     evaluation_guidelines = fields.Text('Evaluation Guidelines')
     selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
     selection_justification = fields.Text('Justification/Notes')
+    
+
+    @api.depends('type_id')
+    def _check_for_purchase_panel(self):
+        if self.type_id.enable_comittee_evaluation:
+            self.write({
+                'enable_panel': True,
+                })
+        else:
+            self.write({
+                    'enable_panel': False,
+                    })
+     

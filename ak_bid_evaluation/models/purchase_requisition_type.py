@@ -5,4 +5,4 @@ from odoo import models, fields, _
 class PurchaseRequisitionType(models.Model):
     _inherit = "purchase.requisition.type"
 
-    enable_comittee_evaluation = fields.Boolean('Enable Purchase Committee Evaluation', help="hell world")
+    enable_comittee_evaluation = fields.Boolean('Enable Purchase Committee Evaluation', help="If this is checked")

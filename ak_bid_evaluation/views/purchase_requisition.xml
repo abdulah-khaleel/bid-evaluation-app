@@ -13,18 +13,9 @@
             </xpath>
             <xpath expr="//page[@name='products']" position="after">
                 <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_panel', '=', False)],'required': [('enable_panel', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
-                    <group string="Evaluation Results">
-                        <group>
-                            <!-- <field name="selected_bid_id" /> -->
-                        </group>
-                        <group></group>
-                    </group>
-                    <group>
-                        <field name="selection_justification" />
-                    </group>
-                    
-                    <group string="Evaluation Guidelines">
-                            <field name="evaluation_guidelines" nolabel="1" placeholder="Add any guidelines or notes to be added to indidual bid evaluation records automatically."/>
+                    <group string="Evaluation Notes">
+                        <field name="evaluation_guidelines" placeholder="Any guidelines used while evaluating bids. Guidelines written here will be reproduced in each evaluation record."/>
+                        <field name="selection_justification" string="Notes" placeholder="Note down any remarks or justifications regarding the evaluation process, results and/or bid selection." />
                     </group>
                 </page>
             </xpath>

@@ -31,7 +31,7 @@ class BidEvaluation(models.Model):
                 rec.score_avg = sum(scores) / len(scores)
             else:
                 rec.score_avg = 0
-    
+ 
 class BidEvaluationQuestion(models.Model):
     _name = 'bid.evaluation.question'
     _description = 'Bid Evaluation Question'
@@ -41,6 +41,7 @@ class BidEvaluationQuestion(models.Model):
     remarks = fields.Text('Remarks')
     bid_evaluation_id = fields.Many2one('bid.evaluation', string="Bid Evaluation")
 
+    
     @api.constrains('score')
     def _check_max_score(self):
         if self.bid_evaluation_id.score_limit:

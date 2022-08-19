@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <odoo>
+        
+    <report 
+    id="action_print_bid_eval_sheet"
+    model="bid.evaluation"
+    string="Bid Evaluation Sheet"
+    report_type="qweb-pdf"
+    name="ak_bid_evaluation.bid_evaluation_sheet_report_template"
+    file="ak_bid_evaluation.bid_evaluation_sheet_report_template"
+    print_report_name="(object.name)"
+/>
+
+<record id="paperformat_bid_eval_sheet" model="report.paperformat">
+    <field name="name">Contract Details Paper Format</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">30</field>
+    <field name="margin_bottom">20</field>
+    <field name="margin_left">15</field>
+    <field name="margin_right">15</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">20</field>
+    <field name="dpi">110</field>
+</record>
+
+<record id="action_print_bid_eval_sheet" model="ir.actions.report">
+    <field name="paperformat_id" ref="ak_bid_evaluation.paperformat_bid_eval_sheet"/>
+</record>
+
+<template id="bid_eval_sheet_main_info">
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+    
+    <t t-call="ak_bid_evaluation.bid_eval_sheet_header" />
+    <t t-raw="0" />
+    <t t-call="ak_bid_evaluation.bid_eval_sheet_footer"/>
+</template>
+
+<template id="bid_eval_sheet_header">
+    <div class="header" style=" height: 100px !important;">
+        <div style="display:flex; flex-direction:row;">    
+            <div class="col-left">
+                <p>  <span t-esc="o.po_id.company_id.name"/></p>
+            </div>
+            <div class="col-left">
+                <p><span class="mr-3 bold-text">Bid Ref: </span><span t-esc="o.po_id.name"/></p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="bid_eval_sheet_footer">
+    <div class="footer">
+
+    </div>
+</template>
+
+<template id="bid_evaluation_sheet_template">
+    <t t-call="web.basic_layout">
+        <t t-call="ak_bid_evaluation.bid_eval_sheet_main_info">
+            <div class="page" >
+                <style>
+                    .has-border {
+                        border: 1px solid black;
+                      }
+                    .bold-text {
+                        font-family:Arial, sans-serif; 
+                        font-weight:bold;
+                    }
+                 </style>
+                 <!-- <table class="mb-5">
+                    <tbody>
+                        <tr>
+                            <td><span t-esc="o.purchase_requisition_id.company_id.name"/></td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                 <h2 class="text-center mt-16" >BID EVALUATION SHEET</h2>
+                 <h4 class="text-center mt-16" >Ref. <span t-esc="o.purchase_requisition_id.name"/></h4>
+                 <h4 class="text-center mt-16" ><span t-esc="o.po_id.name"/> - <span t-esc="o.partner_id.name"/> </h4>
+                <br/>
+
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td><span class="mr-3">Evaluation By:</span><span t-esc="o.user_id.name"/></td>
+                            <td><span class="mr-3">Date:</span><span t-esc="o.date"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+
+                <div>
+                    <h5>Evaluation Guidelines</h5>
+                    <p class="mr-2"><span t-esc="o.evaluation_guidelines"/></p>
+                </div>
+                <br/>
+                <!-- <div>
+                    <h5>Evaluation Approach</h5>
+                    <p><span t-esc="o.evaluation_approach_description"/></p>
+                </div> -->
+          
+            <br/>   
+
+            
+            <h5>Bid Checklist</h5>
+            <table class="table table-sm">
+                <thead>
+                    <tr style="background:#f3f5f2">
+                        <th >Item</th>
+                        <th>Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.checklist_item_ids" t-as="item">
+                        <td><span t-esc="item.name"/></td>
+                        <td><span style="text-transform: capitalize;" t-esc="item.item_clear"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+
+            <h5>Bid Evaluation</h5>
+            <table class="table table-sm">
+                <thead>
+                    <tr  style="background:#f3f5f2">
+                        <th>Question/Criteria</th>
+                        <th>Score</th>
+                        <th>Remarks (if any)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.question_ids" t-as="question">
+                        <td><span t-esc="question.name"/></td>
+                        <td><span t-esc="question.score"/></td>
+                        <td><span t-esc="question.remarks"/></td>
+                    </tr>
+                    <!-- <tr style="background:#f3f5f2">
+                        <td>Average Score</td>
+                        <td><span t-esc="o.score_avg"/></td>
+                        <td></td>
+                    </tr> -->
+                </tbody>
+            </table>
+            <p class="text-right" style="font-family:Arial; font-weight:bold">Average Score: <span t-esc="o.score_avg"/></p>
+
+            <br/>
+
+            <div>
+                <h5>Notes</h5>
+                <p><span t-esc="o.notes"/></p>
+            </div>
+            <br/>  <br/>
+
+            <!-- <h5>Purchase Committee</h5>
+            <table class="table table-sm">
+                <thead>
+                    <tr  style="background:#f3f5f2">
+                        <th>Member</th>
+                        <th>Approved on</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.bid_approver_ids" t-as="approver">
+                        <td><span t-esc="approver.user_id.name"/></td>
+                        <td><span t-esc="approver.approval_date"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/> -->
+            
+         </div> <!-- End of 'Page' div  -->
+        </t>
+    </t>
+</template> 
+
+ 
+    <template id="bid_evaluation_sheet_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ak_bid_evaluation.bid_evaluation_sheet_template"/>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

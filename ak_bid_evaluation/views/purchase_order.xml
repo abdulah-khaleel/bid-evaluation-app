@@ -12,11 +12,12 @@
                 </button>
             </xpath>
             <xpath expr="//button[@name='button_cancel']" position="after">
-                <button name="create_bid_evaluation" string="Evaluate Bid" type="object" attrs="{'invisible':['|',('has_evaluation', '=', True),('state','=','cancel')]}" />
+                <button name="create_bid_evaluation" string="Evaluate Bid" type="object" attrs="{'invisible':['|',('show_eval_button', '!=', True),('state','=','cancel')]}" />
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="evaluation_count" invisible="1" />
-                <field name="has_evaluation" invisible="1"/>
+                <field name="has_evaluation" readonly="1"/>
+                <field name="show_eval_button" readonly="1"/>
             </xpath>
         </field>
     </record>

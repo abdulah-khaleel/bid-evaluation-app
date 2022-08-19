@@ -13,15 +13,29 @@ class BidEvaluation(models.Model):
     purchase_requisition_id = fields.Many2one('purchase.requisition', string="Purchase Requisition")
     po_id = fields.Many2one('purchase.order', 'RFQ')
     partner_id = fields.Many2one('res.partner',  string="Vendor")
-    deadline = fields.Date(string="Deadline", default = lambda self: self.po_id.date_order)
+    date = fields.Date(string="Date", default = lambda self: fields.Date.today())
     evaluation_guidelines = fields.Text('Evaluation Guidelines')
     score_limit = fields.Integer('Highest Score')
     score_avg = fields.Float('Average Score', compute="_compute_score_avg")
     notes = fields.Text('Notes')
     checklist_item_ids = fields.One2many('bid.evaluation.checklist','bid_evaluation_id', string="Evaluation Checklist")
     question_ids = fields.One2many('bid.evaluation.question', 'bid_evaluation_id', string="Bid Evaluation Questions")
-    
     selection_justification = fields.Text('Selection Justification')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('cancel', 'Cancelled'),
+        ], default='draft', string="Status", track_visibility=True)
+    user_id = fields.Many2one('res.users', string="Evaluation By", default=lambda self: self.env.user, track_visibility=True)
+
+    def cancel_evaluation(self):
+        self.write({'state': 'cancel'})
+
+    def reset_to_draft(self):
+        self.write({'state': 'draft'})
+            
+    def approve_evaluation(self):
+        self.write({'state': 'done'})
 
     @api.depends('question_ids.score')
     def _compute_score_avg(self):
@@ -31,6 +45,7 @@ class BidEvaluation(models.Model):
                 rec.score_avg = sum(scores) / len(scores)
             else:
                 rec.score_avg = 0
+        
  
 class BidEvaluationQuestion(models.Model):
     _name = 'bid.evaluation.question'

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, _
 from odoo.exceptions import UserError
-
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    show_eval_button = fields.Boolean(string='Allow Eval Creation', default=False, copy=False, compute="_compute_show_evaluation_button")
     has_evaluation = fields.Boolean(string='Has Evaluation', default=False, copy=False)
     evaluation_count = fields.Integer(compute="_compute_evaluations_count")
 
@@ -44,7 +44,7 @@ class PurchaseOrder(models.Model):
             'po_id': self.id,
             'purchase_requisition_id': self.requisition_id.id,
             'partner_id': self.partner_id.id,
-            'deadline': self.date_order,
+            'date': fields.Date.today(),
             'evaluation_guidelines': self.requisition_id.evaluation_guidelines,
             'score_limit': self.requisition_id.eval_template_id.score_limit,
             'checklist_item_ids': self.get_checklist_item_ids(),
@@ -57,3 +57,9 @@ class PurchaseOrder(models.Model):
     def _compute_evaluations_count(self):
         BidEvaluations = self.env['bid.evaluation']
         self.evaluation_count = BidEvaluations.search_count([('po_id', '=', self.id)])
+
+    def _compute_show_evaluation_button(self):
+        if not self.requisition_id or self.has_evaluation:
+            self.show_eval_button = False
+        else:
+            self.show_eval_button = True

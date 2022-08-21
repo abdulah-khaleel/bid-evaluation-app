@@ -66,6 +66,7 @@ class PurchaseRequisition(models.Model):
         for rec in evaluation_records:
             bidder_list = []
             bidder_list.append(rec.partner_id.name)
+            bidder_list.append(rec.po_id.name)
             partner_dict = {}
             if len(rec.question_ids) == 0:
                 for name in question_titles:

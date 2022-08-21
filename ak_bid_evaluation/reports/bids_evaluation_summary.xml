@@ -11,7 +11,7 @@
     print_report_name="'Bids Evaluation Summary - %s' % (object.name)"
 />
 
-<record id="paperformat_evaluations_summary" model="report.paperformat">
+<record id="paperformat_evaulation_summary" model="report.paperformat">
     <field name="name">Contract Details Paper Format</field>
     <field name="default" eval="True" />
     <field name="format">A4</field>
@@ -22,11 +22,11 @@
     <field name="margin_right">15</field>
     <field name="header_line" eval="False" />
     <field name="header_spacing">20</field>
-    <field name="dpi">120</field>
+    <field name="dpi">110</field>
 </record>
 
 <record id="action_print_evaluation_summary" model="ir.actions.report">
-    <field name="paperformat_id" ref="ak_bid_evaluation.paperformat_evaluations_summary"/>
+    <field name="paperformat_id" ref="ak_bid_evaluation.paperformat_evaulation_summary"/>
 </record>
 
 <template id="bid_eval_summary_main_info">
@@ -77,13 +77,7 @@
                         font-weight:bold;
                     }
                  </style>
-                 <!-- <table class="mb-3">
-                    <tbody>
-                        <tr>
-                            <td><span t-esc="o.company_id.name"/></td>
-                        </tr>
-                    </tbody>
-                </table> -->
+
                 <h3 class="text-center" >BIDS EVALUATION SUMMARY</h3>
                 <br/>
                 <br/>
@@ -91,7 +85,7 @@
                 <table style="width: 100%">
                     <tbody>
                         <tr>
-                            <td><span class="mr-3 bold-text">Requisition Ref: </span><span t-esc="o.name"/></td>
+                            <td><span class="mr-3 bold-text">Purchase Representative: </span><span t-esc="o.user_id.name"/></td>
                             <td class="text-right"><span class="mr-3 bold-text">Date: </span><span t-esc="o.date_end"/></td>
                         </tr>
                     </tbody>
@@ -104,6 +98,7 @@
                         <t t-set="questions_list" t-value="o.get_evaluation_questions()"/>
                         <tr class="has-border">
                             <td style="text-align:center; width: 15%;" class="has-border bold-text"><span />Vendor</td>
+                            <td style="text-align:center; width: 15%;" class="has-border bold-text"><span />Bid Ref.</td>
                             <t t-foreach="questions_list" t-as="question">
                                 <td style="text-align:center;" class="has-border bold-text"><span style="text-transform: capitalize ;" t-esc="question"/></td>
                             </t>
@@ -113,7 +108,8 @@
                         <t t-foreach="bidders_list" t-as="bidder">
                             <tr class="has-border">                           
                                 <td class="has-border"><span t-esc="bidder[0]"/></td>
-                                <t t-foreach="bidder[1]" t-as="checklist_item">
+                                <td class="has-border"><span t-esc="bidder[1]"/></td>
+                                <t t-foreach="bidder[2]" t-as="checklist_item">
                                     <td style="text-align:center;" class="has-border"><span style="text-transform: capitalize; text-align: center;" t-esc="checklist_item_value"/></td>
                                 </t>
                             </tr>

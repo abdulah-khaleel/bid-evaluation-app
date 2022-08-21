@@ -53,18 +53,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="header">
-        <div class="header" style=" height: 100px !important;">
-            <div style="display:flex; flex-direction:row;">    
-                <div class="col-left">
-                    <p>  <span t-esc="o.company_id.name"/></p>
-                </div>
-                <div class="col-left">
-                    <p><span class="mr-3 bold-text">Requisition Ref: </span><span t-esc="o.name"/></p>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </template>
 
 <template id="bid_checklist_sum_footer">
@@ -89,21 +77,13 @@
                         font-weight:bold;
                     }
                  </style>
-                 <!-- <table class="mb-3">
-                    <tbody>
-                        <tr>
-                            <td><span t-esc="o.company_id.name"/></td>
-                        </tr>
-                    </tbody>
-                </table> -->
-                <h3 class="text-center" >BIDS CHECKLIST SUMMARY SHEET</h3>
+               <h3 class="text-center" >BIDS CHECKLIST SUMMARY SHEET</h3>
                 <br/>
                 <br/>
-                
                 <table style="width: 100%">
                     <tbody>
                         <tr>
-                            <td><span class="mr-3 bold-text">Representative: </span><span t-esc="o.user_id.name"/></td>
+                            <td><span class="mr-3 bold-text">Purchase Representative: </span><span t-esc="o.user_id.name"/></td>
                             <td class="text-right"><span class="mr-3 bold-text">Agreement Deadline: </span><span t-esc="o.date_end"/></td>
                         </tr>
                     </tbody>

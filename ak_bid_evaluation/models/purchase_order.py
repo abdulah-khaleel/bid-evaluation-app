@@ -24,7 +24,7 @@ class PurchaseOrder(models.Model):
     
     def get_bid_evaluation_record(self):
         self.ensure_one()
-        bid_evaluation_record = self.env['bid.evaluation'].search([('po_id', '=', self.id)])
+        bid_evaluation_record = self.env['bid.evaluation'].search([('purchase_order_id', '=', self.id)])
         if bid_evaluation_record:
             return {
                 'type': 'ir.actions.act_window',
@@ -32,7 +32,7 @@ class PurchaseOrder(models.Model):
                 'view_mode': 'form',
                 'res_model': 'bid.evaluation',
                 'res_id': bid_evaluation_record.id,
-                'domain': [('po_id', '=', self.id)],
+                'domain': [('purchase_order_id', '=', self.id)],
             }
     
     def create_bid_evaluation(self):
@@ -41,9 +41,11 @@ class PurchaseOrder(models.Model):
         
         bid_evaluation_record = self.env['bid.evaluation'].sudo().create({
             'name': f'Bid Evaluation - {self.requisition_id.name} - {self.partner_id.name}',
-            'po_id': self.id,
-            'purchase_requisition_id': self.requisition_id.id,
+            'purchase_order_id': self.id,
+            'requisition_id': self.requisition_id.id,
             'partner_id': self.partner_id.id,
+            # user_id equals to current logged in user:
+            'user_id': self.env.user.id,
             'date': fields.Date.today(),
             'evaluation_guidelines': self.requisition_id.evaluation_guidelines,
             'score_limit': self.requisition_id.eval_template_id.score_limit,
@@ -56,10 +58,10 @@ class PurchaseOrder(models.Model):
     
     def _compute_evaluations_count(self):
         BidEvaluations = self.env['bid.evaluation']
-        self.evaluation_count = BidEvaluations.search_count([('po_id', '=', self.id)])
+        self.evaluation_count = BidEvaluations.search_count([('purchase_order_id', '=', self.id)])
 
     def _compute_show_evaluation_button(self):
-        if not self.requisition_id or self.has_evaluation:
+        if not self.requisition_id or not self.requisition_id.type_id.enable_evaluation or self.has_evaluation:
             self.show_eval_button = False
         else:
             self.show_eval_button = True

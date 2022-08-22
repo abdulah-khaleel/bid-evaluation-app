@@ -6,16 +6,20 @@
         <field name="res_model">bid.evaluation</field>
         <field name="view_mode">tree,form</field>
     </record>
-<!--  
-    <record id="bid_evaluation_list_view" model="ir.ui.view">
-        <field name="name">bid.evaluation.list.view</field>
-        <field name="model">bid.panel.members</field>
-        <field name="arch" type="xml">
-            <tree string="Bid Evaluation Template">
-                <field name="name"/>
-            </tree>
-        </field>
-    </record> -->
+
+   <record id="bid_evaluation_view_tree" model="ir.ui.view">
+    <field name="name">bid.evaluation.view.tree</field>
+    <field name="model">bid.evaluation</field>
+    <field name="arch" type="xml">
+        <tree string="">
+           <field name="name"/>
+           <field name="requisition_id"/>
+           <field name="purchase_order_id"/>
+           <field name="partner_id"/>
+           <field name="state"/>
+        </tree>
+    </field>
+   </record> 
 
     <record id="bid_evaluation_form_view" model="ir.ui.view">
         <field name="name">bid.evaluation.form.view</field>
@@ -38,14 +42,14 @@
                             <field name="score_avg" invisible="1"/>
                         </group>
                         <group>
-                            <field name="po_id" readonly="1"/>
-                            <field name="purchase_requisition_id" readonly="1"/>
+                            <field name="purchase_order_id" readonly="1"/>
+                            <field name="requisition_id" readonly="1"/>
                         </group>
                     </group>
 
                     <group string="Evaluation Info">
                         <group>
-                            <field name="evaluation_guidelines"  />
+                            <field name="evaluation_guidelines"/> 
                             <field name="score_limit" invisible="1"/>
                         </group>
                         <group>

@@ -10,11 +10,11 @@ class BidEvaluation(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="Title")
-    purchase_requisition_id = fields.Many2one('purchase.requisition', string="Purchase Requisition")
-    po_id = fields.Many2one('purchase.order', 'RFQ')
+    requisition_id = fields.Many2one('purchase.requisition', string="Purchase Requisition")
+    purchase_order_id = fields.Many2one('purchase.order', 'RFQ')
     partner_id = fields.Many2one('res.partner',  string="Vendor")
     date = fields.Date(string="Date", default = lambda self: fields.Date.today())
-    evaluation_guidelines = fields.Text('Evaluation Guidelines')
+    evaluation_guidelines = fields.Text('Evaluation Guidelines', readonly=True)
     score_limit = fields.Integer('Highest Score')
     score_avg = fields.Float('Average Score', compute="_compute_score_avg")
     notes = fields.Text('Notes')

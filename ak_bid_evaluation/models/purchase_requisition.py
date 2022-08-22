@@ -14,23 +14,23 @@ class PurchaseRequisition(models.Model):
     selection_justification = fields.Text('Justification/Notes')
 
     def get_bid_evaluations(self):
-        evaluation_records = self.env['bid.evaluation'].search([('purchase_requisition_id', '=', self.id)])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id)])
         return evaluation_records
     
     def get_checklist_summary_titles(self):
-        evaluation_records = self.env['bid.evaluation'].search([('purchase_requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
         return sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
 
     def get_checklist_summary_lines(self):
 
-        evaluation_records = self.env['bid.evaluation'].search([('purchase_requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
         checklist_item_names = sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
         
         checklist_l = []
         for rec in evaluation_records:
             bidder_list = []
             bidder_list.append(rec.partner_id.name)
-            bidder_list.append(rec.po_id.name)
+            bidder_list.append(rec.purchase_order_id.name)
             partner_dict = {}
             if len(rec.checklist_item_ids) == 0:
                 for name in checklist_item_names:
@@ -52,21 +52,21 @@ class PurchaseRequisition(models.Model):
         return checklist_l
 
     def get_evaluation_questions(self):
-        evaluation_records = self.env['bid.evaluation'].search([('purchase_requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         question_titles.append('Average Score')
         return question_titles
 
     def get_evaluation_summary_lines(self):
 
-        evaluation_records = self.env['bid.evaluation'].search([('purchase_requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         
         eval_list = []
         for rec in evaluation_records:
             bidder_list = []
             bidder_list.append(rec.partner_id.name)
-            bidder_list.append(rec.po_id.name)
+            bidder_list.append(rec.purchase_order_id.name)
             partner_dict = {}
             if len(rec.question_ids) == 0:
                 for name in question_titles:
@@ -142,7 +142,7 @@ class PurchaseRequisition(models.Model):
      
     @api.depends('type_id')
     def _check_for_purchase_panel(self):
-        if self.type_id.enable_comittee_evaluation:
+        if self.type_id.enable_evaluation:
             self.write({'enable_panel': True})
         else:
             self.write({'enable_panel': False})

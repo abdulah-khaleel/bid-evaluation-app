@@ -49,7 +49,7 @@
                 <p>  <span t-esc="o.purchase_order_id.company_id.name"/></p>
             </div>
             <div class="col-left">
-                <p><span class="mr-3 bold-text">Bid Ref: </span><span t-esc="o.po_id.name"/></p>
+                <p><span class="mr-3 bold-text">Bid Ref: </span><span t-esc="o.purchase_order_id.name"/></p>
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
                 
                  <h2 class="text-center mt-16" >BID EVALUATION SHEET</h2>
                  <h4 class="text-center mt-16" >Ref. <span t-esc="o.requisition_id.name"/></h4>
-                 <h4 class="text-center mt-16" ><span t-esc="o.po_id.name"/> - <span t-esc="o.partner_id.name"/> </h4>
+                 <h4 class="text-center mt-16" ><span t-esc="o.purchase_order_id.name"/> - <span t-esc="o.partner_id.name"/> </h4>
                 <br/>
 
                 <table class="table table-sm">

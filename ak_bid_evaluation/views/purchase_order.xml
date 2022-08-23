@@ -16,8 +16,8 @@
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="evaluation_count" invisible="1" />
-                <field name="has_evaluation" readonly="1"/>
-                <field name="show_eval_button" readonly="1"/>
+                <field name="has_evaluation" invisible="1"/>
+                <field name="show_eval_button" invisible="1"/>
             </xpath>
         </field>
     </record>

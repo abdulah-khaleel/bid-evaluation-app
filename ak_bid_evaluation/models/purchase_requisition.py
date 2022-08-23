@@ -18,12 +18,12 @@ class PurchaseRequisition(models.Model):
         return evaluation_records
     
     def get_checklist_summary_titles(self):
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done','draft'])])
         return sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
 
     def get_checklist_summary_lines(self):
 
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', ['done', 'draft'])])
         checklist_item_names = sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
         
         checklist_l = []
@@ -52,14 +52,14 @@ class PurchaseRequisition(models.Model):
         return checklist_l
 
     def get_evaluation_questions(self):
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done', 'draft'])])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         question_titles.append('Average Score')
         return question_titles
 
     def get_evaluation_summary_lines(self):
 
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', 'done')])
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done', 'draft'])])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         
         eval_list = []

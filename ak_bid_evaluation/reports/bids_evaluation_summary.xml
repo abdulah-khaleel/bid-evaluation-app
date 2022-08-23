@@ -79,6 +79,7 @@
                  </style>
 
                 <h3 class="text-center" >BIDS EVALUATION SUMMARY</h3>
+                <h5 class="text-center" ><span t-esc="o.name"/></h5>
                 <br/>
                 <br/>
                 
@@ -86,7 +87,7 @@
                     <tbody>
                         <tr>
                             <td><span class="mr-3 bold-text">Purchase Representative: </span><span t-esc="o.user_id.name"/></td>
-                            <td class="text-right"><span class="mr-3 bold-text">Date: </span><span t-esc="o.date_end"/></td>
+                            <td class="text-right"><span class="mr-3 bold-text">Agreement Deadline: </span><span t-esc="o.date_end"/></td>
                         </tr>
                     </tbody>
                 </table>

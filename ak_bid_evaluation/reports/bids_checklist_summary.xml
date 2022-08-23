@@ -78,6 +78,7 @@
                     }
                  </style>
                <h3 class="text-center" >BIDS CHECKLIST SUMMARY SHEET</h3>
+               <h5 class="text-center" ><span t-esc="o.name"/></h5>
                 <br/>
                 <br/>
                 <table style="width: 100%">

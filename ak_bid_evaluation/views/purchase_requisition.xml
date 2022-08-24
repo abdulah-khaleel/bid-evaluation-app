@@ -8,11 +8,11 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="after">
                 <!-- <field name="panel_id" attrs="{'invisible': [('enable_panel', '=', False)],'required': [('enable_panel', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/> -->
-                <field name="eval_template_id" attrs="{'invisible': [('enable_panel', '=', False)],'required': [('enable_panel', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
-                <field name="enable_panel" invisible="1" />
+                <field name="eval_template_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
+                <field name="enable_evaluation" invisible="1" />
             </xpath>
             <xpath expr="//page[@name='products']" position="after">
-                <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_panel', '=', False)],'required': [('enable_panel', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
+                <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
                     <group string="Evaluation Results/Notes">
                         <group>
                             <field name="selected_bid_id" string="Selected Vendor"/>

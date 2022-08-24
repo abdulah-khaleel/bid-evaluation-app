@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError, UserError
 class PurchaseRequisition(models.Model):
     _inherit = "purchase.requisition"
 
-    enable_panel = fields.Boolean('Enable Panel Committee', compute='_check_for_purchase_panel')
+    enable_evaluation = fields.Boolean('Enable Evaluation', compute='_check_for_evaluation')
     eval_template_id = fields.Many2one('bid.evaluation.template', string="Bid Evaluation Template", ondelete="restrict")
     evaluation_guidelines = fields.Text('Evaluation Guidelines')
     selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
@@ -141,9 +141,9 @@ class PurchaseRequisition(models.Model):
 
      
     @api.depends('type_id')
-    def _check_for_purchase_panel(self):
+    def _check_for_evaluation(self):
         if self.type_id.enable_evaluation:
-            self.write({'enable_panel': True})
+            self.write({'enable_evaluation': True})
         else:
-            self.write({'enable_panel': False})
+            self.write({'enable_evaluation': False})
      

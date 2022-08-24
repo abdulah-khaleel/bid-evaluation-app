@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  
+    <record id="view_purchase_requisition_form_for_purchase_panel" model="ir.ui.view">
+        <field name="name">purchase.requisition.form.for.purchase.panel</field>
+        <field name="model">purchase.requisition</field>
+        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='eval_template_id']" position="before">
+                <field name="panel_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
+            </xpath>
+        </field>
+    </record>
+   
+    <record id="mail_bid_panel_member_evaluation_notification" model="mail.activity.type">
+        <field name="name">Bids Evaluation</field>
+        <field name="icon">fa-sun-o</field>
+    </record>
+    
+    <record id="mail_purchase_panel_member_notification" model="mail.activity.type">
+        <field name="name">Bids Evaluation</field>
+        <field name="icon">fa-sun-o</field>
+    </record>
+
+</odoo>

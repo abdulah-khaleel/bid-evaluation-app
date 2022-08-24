@@ -32,6 +32,7 @@
         'views/purchase_requisition.xml',
         'views/purchase_order.xml',
         'views/bid_evaluation.xml',
+        'views/res_config_settings_views.xml',
         'reports/bid_evaluation_sheet.xml',
         'reports/bids_checklist_summary.xml',
         'reports/bids_evaluation_summary.xml',

@@ -23,14 +23,3 @@ class PurchaseRequisition(models.Model):
     #     return super(PurchaseRequisition,self).action_open()
 
 
-    # @api.depends('type_id')
-    # def _check_for_purchase_panel(self):
-    #     if self.type_id.enable_evaluation:
-    #         self.write({
-    #             'enable_panel': True,
-    #             })
-    #     else:
-    #         self.write({
-    #                 'enable_panel': False,
-    #                 })
- 

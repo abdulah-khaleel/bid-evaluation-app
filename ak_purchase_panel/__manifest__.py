@@ -25,10 +25,11 @@
      "license": "LGPL-3",
     'depends': ['ak_bid_evaluation'],
     'data': [
-        # 'security/purchase_panel_security.xml',
+        'security/purchase_panel_security.xml',
         'security/ir.model.access.csv',
         'views/purchase_panel_views.xml',
         'views/purchase_requisition_views.xml',
+        'views/bid_evaluation_views.xml',
     ],
     # 'images': ["static/description/banner-v15.png"],
     'license': 'LGPL-3',

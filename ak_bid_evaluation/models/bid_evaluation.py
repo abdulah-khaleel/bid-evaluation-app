@@ -21,6 +21,7 @@ class BidEvaluation(models.Model):
     checklist_item_ids = fields.One2many('bid.evaluation.checklist','bid_evaluation_id', string="Evaluation Checklist")
     question_ids = fields.One2many('bid.evaluation.question', 'bid_evaluation_id', string="Bid Evaluation Questions")
     selection_justification = fields.Text('Selection Justification')
+    # bid_approver_ids = fields.Many2many('bid.panel.members', string="Panel Members")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('done', 'Done'),
@@ -75,4 +76,4 @@ class BidEvaluationChecklist(models.Model):
         ], string="Available", required=True)
     bid_evaluation_id = fields.Many2one('bid.evaluation', string="Bid Evaluation")
 
-    
+ 

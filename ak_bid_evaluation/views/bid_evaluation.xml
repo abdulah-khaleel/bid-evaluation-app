@@ -26,7 +26,7 @@
         <field name="model">bid.evaluation</field>
         <field name="arch" type="xml">
             <form string="Bid Evaluation">
-                <header>
+                <header name="bid_eval_form_header">
                     <button name="approve_evaluation" class="oe_highlight" string="Approve" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
                     <button name="cancel_evaluation" string="Cancel" type="object" attrs="{'invisible':[('state','not in',['draft','done'])]}"/>
                     <button name="reset_to_draft" string="Reset to Draft" type="object" attrs="{'invisible':[('state','!=','cancel')]}"/>
@@ -37,8 +37,8 @@
                         <group>
                             <field name="name" readonly="1"/>
                             <field name="partner_id" readonly="1"/>
-                            <field name="date" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
-                            <field name="user_id" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                            <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="user_id" attrs="{'readonly':[('state','!=','draft')]}"/>
                             <field name="score_avg" invisible="1"/>
                         </group>
                         <group>
@@ -68,7 +68,7 @@
                     <group string="Questions/Evaluation Criteria">
                     </group>
                     <notebook>
-                        <page name="Questions" string="Questions/Evaluation Factors">
+                        <page name="questions" string="Questions/Evaluation Factors">
                             <field name="question_ids" nolabel="1" widget="one2many" attrs="{'readonly':[('state','in',['done','cancel'])]}">
                                 <tree  editable="bottom" >
                                     <field name="name" string="Question/Factor" width="300px"  />
@@ -85,7 +85,7 @@
                             </group>
                             <!-- <field name="score_avg" string="Average Score"/> -->
                             <group string="Notes">
-                                    <field name="notes" nolabel="1" attrs="{'readonly':[('state','in',['done','cancel'])]}"/>
+                                    <field name="notes" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}"/>
                             </group>
                         </page>
                     </notebook>

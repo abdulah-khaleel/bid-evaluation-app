@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bid_evaluation_form_view_for_purchase_panels" model="ir.ui.view">
+            <field name="name">bid.evaluation.form.view.for.purchase.panels</field>
+            <field name="model">bid.evaluation</field>
+            <field name="inherit_id" ref="ak_bid_evaluation.bid_evaluation_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,done"/>
+                </xpath>
+                <xpath expr="//header[@name='bid_eval_form_header']" position="inside">
+                    <button name="submit_evaluation" class="oe_highlight" string="Submit For Panel" type="object" 
+                        attrs="{'invisible':[('state','!=','draft')]}" groups="purchase.group_purchase_user"/>
+                </xpath>
+                <xpath expr="//button[@name='approve_evaluation']" position="replace">
+                    <button name="approve_evaluation" class="oe_highlight" string="Approve" type="object"
+                        attrs="{'invisible':['|',('user_status','!=','pending'),('state','!=','to_approve')]}"/>
+                </xpath>
+                <xpath expr="//button[@name='cancel_evaluation']" position="replace">
+                    <button name="cancel_evaluation" string="Cancel" type="object"
+                        attrs="{'invisible':[('state','not in',['draft','to_approve','done'])]}" 
+                        groups="purchase.group_purchase_user" 
+                        confirm="Are you sure you want to cancel this evaluation? Any approvals made will be reset." />
+                </xpath>
+                <xpath expr="//button[@name='reset_to_draft']" position="replace">
+                    <button name="reset_to_draft" string="Reset to Draft" type="object" 
+                        attrs="{'invisible':[('state','!=','cancel')]}" groups="purchase.group_purchase_user" />
+                </xpath>
+ 
+                <xpath expr="//field[@name='checklist_item_ids']" position="replace">
+                    <field name="checklist_item_ids" nolabel="1" widget="one2many" 
+                        attrs="{'readonly':[('state','in',['to_approve','done','cancel'])]}">
+                            <tree  editable="bottom" >
+                                <field name="name" string="Question/Factor" width="300px" />
+                                <field name="item_clear"/>
+                            </tree>
+                        </field>
+                    </xpath>
+
+                <xpath expr="//field[@name='question_ids']" position="replace">
+                    <field name="question_ids" nolabel="1" widget="one2many" 
+                        attrs="{'readonly':[('state','in',['to_approve','done','cancel'])]}">
+                        <tree  editable="bottom" >
+                            <field name="name" string="Question/Factor" width="300px"  />
+                            <field name="score" string="Score" width="100px"/>
+                            <field name="remarks" string="Remarks" width="500px"/>
+                        </tree>
+                    </field>
+                </xpath>
+
+                <xpath expr="//page[@name='questions']" position="after">
+                        <page name="Panel Members" string="Panel Members" >
+                            <field name="bid_approver_ids" nolabel="1" widget="one2many" 
+                                attrs="{'readonly':[('state','in',['to_approve','done','cancel'])]}">
+                                <tree editable="bottom">
+                                    <field name="user_id" string="Panel Member" width="300px"/>
+                                    <field name="review_state" string="Review Status" width="100px" readonly="1"/>
+                                    <field name="approval_date" />
+                                </tree>
+                            </field>
+                        </page>
+                </xpath>
+
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="user_status" invisible="0"/>
+                </xpath>
+              
+            </field>
+    </record>
+
+    <record id="mail_bid_panel_member_evaluation_notification" model="mail.activity.type">
+        <field name="name">Bids Evaluation</field>
+        <field name="icon">fa-sun-o</field>
+    </record>
+    
+    <record id="mail_purchase_panel_member_notification" model="mail.activity.type">
+        <field name="name">Bids Evaluation</field>
+        <field name="icon">fa-sun-o</field>
+    </record>
+
+</odoo> 

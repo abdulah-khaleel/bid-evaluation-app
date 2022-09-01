@@ -21,7 +21,7 @@
                     <button name="cancel_evaluation" string="Cancel" type="object"
                         attrs="{'invisible':[('state','not in',['draft','to_approve','done'])]}" 
                         groups="purchase.group_purchase_user" 
-                        confirm="Are you sure you want to cancel this evaluation? Any approvals made will be reset." />
+                        confirm="Are you sure you want to cancel this evaluation? Any approvals by panel members will be reset." />
                 </xpath>
                 <xpath expr="//button[@name='reset_to_draft']" position="replace">
                     <button name="reset_to_draft" string="Reset to Draft" type="object" 

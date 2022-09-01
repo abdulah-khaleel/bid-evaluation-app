@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="bid_checklist_summary_for_purchase_panels" 
+        inherit_id="ak_bid_evaluation.bids_checklist_summary_template">
+            <xpath expr="//table[@id='checklist-summary-table']" position="after">
+                <br></br> 
+                <br></br>
+                <!-- <h5>Purchase Panel</h5> -->
+                <span class="mr-3 bold-text">Purchase Panel: </span>
+                <br></br>
+                <br></br>
+                <table class="" style="width: 50%; white-space: wrap; table-layout: fixed;">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.panel_id.member_ids" t-as="member">
+                            <td><span t-esc="member.name"/></td>
+                            <td><span t-esc="member.partner_id.function"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+            </xpath>
+    </template>
+</odoo>

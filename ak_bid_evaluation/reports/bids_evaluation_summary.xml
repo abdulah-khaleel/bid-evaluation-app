@@ -94,7 +94,7 @@
                 <br/>
  
                 <!-- <h5>Bid Evaluation</h5> -->
-                <table style="width: 100%; white-space: wrap; table-layout: fixed;" class="has-border">
+                <table id="bid-evaluation-summary-table" style="width: 100%; white-space: wrap; table-layout: fixed;" class="has-border">
                     <tbody class="has-border">
                         <t t-set="questions_list" t-value="o.get_evaluation_questions()"/>
                         <tr class="has-border">

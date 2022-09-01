@@ -25,7 +25,7 @@
         <field name="name">bid.evaluation.form.view</field>
         <field name="model">bid.evaluation</field>
         <field name="arch" type="xml">
-            <form string="Bid Evaluation">
+            <form string="Bid Evaluation" duplicate="0">
                 <header name="bid_eval_form_header">
                     <button name="approve_evaluation" class="oe_highlight" string="Approve" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
                     <button name="cancel_evaluation" string="Cancel" type="object" attrs="{'invisible':[('state','not in',['draft','done'])]}"/>

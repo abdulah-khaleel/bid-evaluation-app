@@ -46,7 +46,19 @@ class BidEvaluation(models.Model):
                 rec.score_avg = sum(scores) / len(scores)
             else:
                 rec.score_avg = 0
-        
+    
+    def unlink(self):
+        if self.state != 'draft':
+            raise UserError(
+                        'You can only delete bid evaluation records that are in a draft state.'
+                    )
+        else:
+            if self.purchase_order_id:
+                self.purchase_order_id.write({
+                    'has_evaluation': False,
+                })
+        return super(BidEvaluation, self).unlink()
+    
  
 class BidEvaluationQuestion(models.Model):
     _name = 'bid.evaluation.question'

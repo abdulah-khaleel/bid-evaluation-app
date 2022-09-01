@@ -93,7 +93,7 @@
 
                 <!-- <h5>Bid Evaluation</h5> -->
           
-                <table style="width: 100%; white-space: wrap; table-layout: fixed;" class="has-border">
+                <table id="checklist-summary-table" style="width: 100%; white-space: wrap; table-layout: fixed;" class="has-border">
                     <tbody class="has-border">
                         <t t-set="titles_list" t-value="o.get_checklist_summary_titles()"/>
                         <tr class="has-border">
@@ -116,8 +116,6 @@
                         </t>
                     </tbody>
                 </table>
-                <br/>
-                <br/>
 
             </div> 
         </t>

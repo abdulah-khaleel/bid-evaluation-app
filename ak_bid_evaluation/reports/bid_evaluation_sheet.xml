@@ -140,40 +140,20 @@
                         <td><span t-esc="question.score"/></td>
                         <td><span t-esc="question.remarks"/></td>
                     </tr>
-                    <!-- <tr style="background:#f3f5f2">
-                        <td>Average Score</td>
+                    <tr>
+                        <td>AVERAEG SCORE</td>
                         <td><span t-esc="o.score_avg"/></td>
-                        <td></td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
-            <p class="text-right" style="font-family:Arial; font-weight:bold">Average Score: <span t-esc="o.score_avg"/></p>
 
             <br/>
 
-            <div>
+            <div id="notes-section">
                 <h5>Notes</h5>
                 <p><span t-esc="o.notes"/></p>
             </div>
-            <br/>  <br/>
 
-            <!-- <h5>Purchase Committee</h5>
-            <table class="table table-sm">
-                <thead>
-                    <tr  style="background:#f3f5f2">
-                        <th>Member</th>
-                        <th>Approved on</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr t-foreach="o.bid_approver_ids" t-as="approver">
-                        <td><span t-esc="approver.user_id.name"/></td>
-                        <td><span t-esc="approver.approval_date"/></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br/> -->
-            
          </div> <!-- End of 'Page' div  -->
         </t>
     </t>

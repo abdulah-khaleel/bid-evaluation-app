@@ -11,6 +11,8 @@ class PurchaseRequisition(models.Model):
     eval_template_id = fields.Many2one('bid.evaluation.template', string="Bid Evaluation Template", ondelete="restrict")
     evaluation_guidelines = fields.Text('Evaluation Guidelines')
     selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
+    selected_bid_ids = fields.Many2many('purchase.order', string="Selected Bids", domain="[('requisition_id', '=', id)]")
+    selected_partner_id = fields.Many2one('res.partner', string="Selected Vendor", related = 'selected_bid_id.partner_id', store=True)
     selection_justification = fields.Text('Justification/Notes')
 
     def get_bid_evaluations(self):

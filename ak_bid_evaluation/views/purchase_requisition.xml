@@ -15,7 +15,15 @@
                 <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
                     <group string="Evaluation Results/Notes">
                         <group>
-                            <field name="selected_bid_id" string="Selected Vendor"/>
+                            <field name="selected_bid_id" string="Winning Bid"/>
+                            <field name="selected_partner_id" string="Selected Vendor"/>
+                            <field name="selected_bid_ids" string="Selected Bids" widget="many2many_tags">
+                                <!-- <tree  editable="bottom" >
+                                    <field name="name" />
+                                    <field name="partner_id"/>
+                                    <field name="company_id"/>
+                                </tree> -->
+                            </field>
                         </group>
                         <group></group>
                     </group>
@@ -28,7 +36,15 @@
         </field>
     </record>
 
-    <record id="open_agreement_evaluations" model="ir.actions.act_window">
+     <!-- <record id="open_agreement_evaluations" model="ir.actions.act_window">
+        <field name="name">View Evaluations</field>
+        <field name="res_model">bid.evaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('requisition_id', '=', active_id)]</field>
+        <field name="binding_model_id" ref="model_purchase_requisition"/>
+    </record> -->
+
+   <record id="reset_winner_selection_process" model="ir.actions.act_window">
         <field name="name">View Evaluations</field>
         <field name="res_model">bid.evaluation</field>
         <field name="view_mode">tree,form</field>

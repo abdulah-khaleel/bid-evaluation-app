@@ -104,6 +104,7 @@
                  </style>
               
                 <h3 class="text-center" >COMPARATIVE BID REPORT</h3>
+               <h5 class="text-center" ><span t-esc="o.name"/></h5>
                 <br/>
                 <br/>
                 
@@ -165,10 +166,10 @@
                     </tbody>
                 </table>
                 <br />
-                <table style="width: 100%">
+                <table id="winning-bid-table" style="width: 100%">
                     <tbody>
                         <tr>
-                            <td><span class="mr-3 bold-text">Winning Vendor / Bid: </span><span t-esc="o.selected_bid_id.name"/> - <span t-esc="o.selected_bid_id.partner_id.name"/></td>
+                            <td><span class="mr-3 bold-text">Selected Bids: </span><span t-esc="o.selected_bid_id.name"/> - <span t-esc="o.selected_bid_id.partner_id.name"/></td>
                         </tr>
                         <tr>
                             <td ><span class="mr-3 bold-text">Justification/Notes:</span><span t-esc="o.selection_justification"/></td>

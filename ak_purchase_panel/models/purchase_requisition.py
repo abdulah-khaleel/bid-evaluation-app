@@ -9,6 +9,8 @@ class PurchaseRequisition(models.Model):
     # enable_panel = fields.Boolean('Enable Panel Committee', compute='_check_for_purchase_panel')
     panel_id = fields.Many2one('purchase.panel', string="Purchase Committee", ondelete="restrict")
 
+    def print_hello_world(self):
+        print('Hello World +++++++++++++++++++++++++++++++++++++++++')
     # def action_open(self):
     #     if self.type_id.enable_evaluation:
     #         if self.panel_id:

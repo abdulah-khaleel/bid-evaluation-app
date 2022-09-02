@@ -23,7 +23,8 @@ class BidEvaluation(models.Model):
         ('allowed', 'Allowed'),
         ('not_allowed', 'Not Allowed'),
         ], compute="_check_questions_edit_access")
-    
+    is_winning_bid = fields.Boolean('Winning Bid', copy=False) 
+    winner_selection_complete = fields.Boolean('selection process complete', default=True)
 
     def create_activity(self):
         self.ensure_one()
@@ -81,7 +82,6 @@ class BidEvaluation(models.Model):
             })
 
 
-
     def approve_evaluation(self):
         for approver in self.bid_approver_ids:
             if approver.user_id.id == self.env.user.id:
@@ -94,6 +94,7 @@ class BidEvaluation(models.Model):
 
             if not 'pending' in self.bid_approver_ids.mapped('review_state'):
                 self.write({'state': 'done'})
+
     
     @api.depends('question_ids.name')
     def _check_questions_edit_access(self):

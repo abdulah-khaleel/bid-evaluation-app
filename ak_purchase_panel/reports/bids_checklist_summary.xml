@@ -6,7 +6,7 @@
                 <br></br> 
                 <br></br>
                 <!-- <h5>Purchase Panel</h5> -->
-                <span class="mr-3 bold-text">Purchase Panel: </span>
+                <span class="mr-3 bold-text">Purchase Panel: </span><span t-esc="o.panel_id.name"/>
                 <br></br>
                 <br></br>
                 <table class="" style="width: 50%; white-space: wrap; table-layout: fixed;">

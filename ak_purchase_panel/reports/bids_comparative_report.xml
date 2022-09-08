@@ -2,12 +2,12 @@
 <odoo>
     <template id="comparative_report_for_purchase_panels" 
         inherit_id="ak_bid_evaluation.bids_comparative_report_temp">
-            <xpath expr="//table[@id='winning-bid-table']" position="after">
+            <xpath expr="//span[@name='selection-justification']" position="after">
                 <br></br> 
                 <br></br>
                 <!-- <h5>Purchase Panel</h5> -->
-                <span class="mr-3 bold-text">Purchase Panel: </span><span t-esc="o.panel_id.name"/>
-                <br></br>
+                <span class="mr-3 bold-text">Purchase Panel: 
+                </span><span t-esc="o.panel_id.name"/>
                 <br></br>
                 <table class="" style="width: 50%; white-space: wrap; table-layout: fixed;">
                     <thead>

@@ -55,6 +55,16 @@ class PurchaseOrder(models.Model):
   
         self.write({'has_evaluation': True})
         return self.get_bid_evaluation_record()
+
+    # update the selected bids field once an rfq is confirmed in an agreement
+    def button_confirm(self):
+        res = super(PurchaseOrder, self).button_confirm()
+        for po in self:
+            if not po.requisition_id:
+                continue
+            if po.requisition_id.type_id.enable_evaluation:
+                po.requisition_id.selected_bid_ids = [(4, po.id)]
+        return res
     
     def _compute_evaluations_count(self):
         BidEvaluations = self.env['bid.evaluation']

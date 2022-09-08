@@ -166,17 +166,28 @@
                     </tbody>
                 </table>
                 <br />
+
+                <span class="mr-3 bold-text">Selected Bids: </span>
+
                 <table id="winning-bid-table" style="width: 100%">
                     <tbody>
-                        <tr>
-                            <td><span class="mr-3 bold-text">Selected Bids: </span><span t-esc="o.selected_bid_id.name"/> - <span t-esc="o.selected_bid_id.partner_id.name"/></td>
-                        </tr>
-                        <tr>
-                            <td ><span class="mr-3 bold-text">Justification/Notes:</span><span t-esc="o.selection_justification"/></td>
-                            <td ><span class="mr-3"></span><span /></td>
-                        </tr>
-                    </tbody>
+
+                        <t t-foreach="o.selected_bid_ids" t-as="bid">
+                            <tr>
+                                <td>
+                                    <span>Bid</span> <span t-esc="bid.name"/> by <span t-esc="bid.partner_id.name"/>. 
+                                </td>
+                            </tr>
+                        </t>
+
+                   </tbody>
                 </table>
+                <br></br>
+                <span class="bold-text">Panel Remarks: </span>
+                <p>
+                    <span name="selection-justification" class="mr-3" t-esc="o.selection_justification"/> 
+                </p>
+
             </div> 
         </t>
     </t>

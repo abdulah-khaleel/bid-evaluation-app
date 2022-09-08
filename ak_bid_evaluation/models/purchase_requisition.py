@@ -125,14 +125,14 @@ class PurchaseRequisition(models.Model):
                 for product_id in product_ids:
                     for line in quotation.order_line:
                         if line.product_id.id == product_id:
-                            vendor_dict[line.product_id.id] = [line.price_unit, line.price_subtotal]
+                            vendor_dict[line.product_id.id] = [line.currency_id.symbol + ' ' + str(line.price_unit), line.currency_id.symbol + ' ' + str(line.price_subtotal)]
             for product_id in product_ids:
                 if product_id not in vendor_dict:
                     vendor_dict[product_id] = ['-','-']
 
             sorted_vendor_dict = {key: value for key, value in sorted(vendor_dict.items())}
             vendor_list.append(sorted_vendor_dict)
-            vendor_list.append(quotation.amount_total)
+            vendor_list.append(quotation.currency_id.symbol + ' ' + str(quotation.amount_total))
             quotations_list.append(vendor_list)
         return quotations_list
 

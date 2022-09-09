@@ -6,30 +6,32 @@
         <field name="model">purchase.requisition</field>
         <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='origin']" position="after">
-                <!-- <field name="panel_id" attrs="{'invisible': [('enable_panel', '=', False)],'required': [('enable_panel', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/> -->
+            <!-- <xpath expr="//field[@name='origin']" position="after">
                 <field name="eval_template_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
-                <field name="enable_evaluation" invisible="1" />
-            </xpath>
+            </xpath> -->
             <xpath expr="//page[@name='products']" position="after">
                 <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
-                    <group string="Evaluation Results/Notes">
-                        <group>
-                            <field name="selected_bid_id" string="Winning Bid"/>
-                            <field name="selected_partner_id" string="Selected Vendor"/>
-                            <field name="selected_bid_ids" string="Selected Bids" widget="many2many_tags">
-                                <!-- <tree  editable="bottom" >
-                                    <field name="name" />
-                                    <field name="partner_id"/>
-                                    <field name="company_id"/>
-                                </tree> -->
-                            </field>
+                    <group name="eval-guidelines" string="Evaluation Guidelines">
+                        <group name="eval-template-group">
+                            <field name="eval_template_id" string="Evaluation Template" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
+                            <field name="enable_evaluation" invisible="1" />
                         </group>
-                        <group></group>
                     </group>
-                    <group>
+                    <group name="eval-guidelines">
                         <field name="evaluation_guidelines" placeholder="Any guidelines used while evaluating bids. Guidelines written here will be reproduced in each evaluation record."/>
-                        <field name="selection_justification" string="Justification/Notes" placeholder="Note down any remarks or justifications regarding the evaluation process, results and/or bid selection." />
+                    </group>
+                    <group string="Evaluation Results" col="4">
+                        <group colspan="2">
+                            <field name="selected_bid_ids" string="Selected Bids" widget="many2many_tags"/>
+                        </group>
+                        <group colspan="3">
+                        </group>
+                    </group>
+                    <group col="4">
+                        <group colspan="3">
+                            <field name="selection_justification" string="Justification/Notes" placeholder="Note down any remarks or justifications regarding the evaluation process, results and/or bid selection." />
+                        </group>
+                        <group colspan="1"></group>
                     </group>
                 </page>
             </xpath>
@@ -44,8 +46,8 @@
         <field name="binding_model_id" ref="model_purchase_requisition"/>
     </record> -->
 
-   <record id="reset_winner_selection_process" model="ir.actions.act_window">
-        <field name="name">View Evaluations</field>
+   <record id="view_evaluations_of_purchase_agreement_record" model="ir.actions.act_window">
+        <field name="name">Bids Evaluation</field>
         <field name="res_model">bid.evaluation</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('requisition_id', '=', active_id)]</field>

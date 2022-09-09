@@ -64,8 +64,8 @@
 
                 <xpath expr="//field[@name='user_id']" position="after">
                     <field name="user_status" invisible="1"/>
-                    <field name="is_winning_bid" invisible="0"/>
-                    <field name="winner_selection_complete" invisible="0"/>
+                    <!-- <field name="is_winning_bid" invisible="0"/>
+                    <field name="winner_selection_complete" invisible="0"/> -->
                 </xpath>
               
             </field>

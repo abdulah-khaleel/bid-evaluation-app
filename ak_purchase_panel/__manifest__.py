@@ -27,6 +27,7 @@
     'data': [
         'security/purchase_panel_security.xml',
         'security/ir.model.access.csv',
+        'views/menu_views.xml',
         'views/purchase_panel_views.xml',
         'views/purchase_requisition_views.xml',
         'views/bid_evaluation_views.xml',

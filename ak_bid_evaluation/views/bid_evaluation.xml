@@ -2,7 +2,7 @@
 <odoo>
 
     <record id='bid_evaluation_action' model='ir.actions.act_window'>
-        <field name="name">Bid Evaluation Form</field>
+        <field name="name">Bids Evaluation</field>
         <field name="res_model">bid.evaluation</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -11,7 +11,7 @@
     <field name="name">bid.evaluation.view.tree</field>
     <field name="model">bid.evaluation</field>
     <field name="arch" type="xml">
-        <tree string="">
+        <tree string="Bids Evaluation" create="0">
            <field name="name"/>
            <field name="requisition_id"/>
            <field name="purchase_order_id"/>

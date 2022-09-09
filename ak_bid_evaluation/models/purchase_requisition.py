@@ -10,9 +10,9 @@ class PurchaseRequisition(models.Model):
     enable_evaluation = fields.Boolean('Enable Evaluation', compute='_check_for_evaluation')
     eval_template_id = fields.Many2one('bid.evaluation.template', string="Bid Evaluation Template", ondelete="restrict")
     evaluation_guidelines = fields.Text('Evaluation Guidelines')
-    selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
+    # selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
+    # selected_partner_id = fields.Many2one('res.partner', string="Selected Vendor", related = 'selected_bid_id.partner_id', store=True)
     selected_bid_ids = fields.Many2many('purchase.order', string="Selected Bids", domain="[('requisition_id', '=', id)]")
-    selected_partner_id = fields.Many2one('res.partner', string="Selected Vendor", related = 'selected_bid_id.partner_id', store=True)
     selection_justification = fields.Text('Justification/Notes')
 
     def get_bid_evaluations(self):
@@ -145,7 +145,7 @@ class PurchaseRequisition(models.Model):
     @api.depends('type_id')
     def _check_for_evaluation(self):
         if self.type_id.enable_evaluation:
-            self.write({'enable_evaluation': True})
+            self.sudo().write({'enable_evaluation': True})
         else:
-            self.write({'enable_evaluation': False})
+            self.sudo().write({'enable_evaluation': False})
      

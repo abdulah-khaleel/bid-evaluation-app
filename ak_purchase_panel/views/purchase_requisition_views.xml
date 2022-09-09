@@ -6,8 +6,10 @@
         <field name="model">purchase.requisition</field>
         <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='eval_template_id']" position="before">
-                <field name="panel_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
+            <xpath expr="//group[@name='eval-template-group']" position="after">
+                    <group name="purchase-committee" >
+                            <field name="panel_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
+                    </group>
             </xpath>
         </field>
     </record>

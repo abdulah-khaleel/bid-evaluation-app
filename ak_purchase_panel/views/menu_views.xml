@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Top menu item -->
+    <menuitem name="Purchase"
+        id="purchase.menu_purchase_root"
+        groups="purchase.group_purchase_manager,purchase.group_purchase_user,ak_purchase_panel.group_purchase_panel_member"
+        />
+
+</odoo>

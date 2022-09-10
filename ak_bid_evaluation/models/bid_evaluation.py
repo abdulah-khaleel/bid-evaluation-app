@@ -36,7 +36,12 @@ class BidEvaluation(models.Model):
         self.write({'state': 'draft'})
             
     def approve_evaluation(self):
-        self.write({'state': 'done'})
+        # check if total of question_ids.score is greater than 0:
+        total_score = sum([question.score for question in self.question_ids])
+        if total_score == 0:
+            raise UserError(_('Please make sure that all evaluation criteria are scored properly and try again.'))
+        else:
+            self.write({'state': 'done'})
 
     @api.depends('question_ids.score')
     def _compute_score_avg(self):

@@ -20,18 +20,26 @@
                     <group name="eval-guidelines">
                         <field name="evaluation_guidelines" placeholder="Any guidelines used while evaluating bids. Guidelines written here will be reproduced in each evaluation record."/>
                     </group>
-                    <group string="Evaluation Results" col="4">
-                        <group colspan="2">
-                            <field name="selected_bid_ids" string="Selected Bids" widget="many2many_tags"/>
+                    <group string="Selected Bids" col="4">
+                        <group colspan="4">
+                            <field name="selected_bid_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="amount_total"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field>
                         </group>
-                        <group colspan="3">
+                        <group >
                         </group>
                     </group>
                     <group col="4">
-                        <group colspan="3">
-                            <field name="selection_justification" string="Justification/Notes" placeholder="Note down any remarks or justifications regarding the evaluation process, results and/or bid selection." />
+                        <group colspan="4">
+                            <field name="selection_justification" string="Justification/Panel Remarks" placeholder="Note down any remarks or justifications regarding the evaluation process, results and/or bid selection." />
                         </group>
-                        <group colspan="1"></group>
+                        <group ></group>
                     </group>
                 </page>
             </xpath>

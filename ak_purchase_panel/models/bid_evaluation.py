@@ -8,12 +8,9 @@ class BidEvaluation(models.Model):
     _inherit = 'bid.evaluation'
 
     bid_approver_ids = fields.Many2many('bid.panel.members', string="Panel Members")
-    state = fields.Selection([
-        ('draft', 'Draft'),
+    state = fields.Selection(selection_add=[
         ('to_approve', 'To Approve'),
-        ('done', 'Done'),
-        ('cancel', 'Cancelled'),
-        ], default='draft', string="Status", track_visibility=True)
+        ], default='draft', string="Status", tracking=True)
     user_status = fields.Selection([
         ('pending', 'To Approve'),
         ('approved', 'Approved'),

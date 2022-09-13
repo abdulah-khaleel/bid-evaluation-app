@@ -26,8 +26,8 @@ class BidEvaluation(models.Model):
         ('draft', 'Draft'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
-        ], default='draft', string="Status", track_visibility=True)
-    user_id = fields.Many2one('res.users', string="Evaluation By", default=lambda self: self.env.user, track_visibility=True)
+        ], default='draft', string="Status", tracking=True)
+    user_id = fields.Many2one('res.users', string="Evaluation By", default=lambda self: self.env.user, tracking=True)
 
     def cancel_evaluation(self):
         self.write({'state': 'cancel'})
@@ -42,6 +42,11 @@ class BidEvaluation(models.Model):
             raise UserError(_('Please make sure that all evaluation criteria are scored properly and try again.'))
         else:
             self.write({'state': 'done'})
+
+    def add_remarks(self):
+        for rec in self:
+            rec.write({'notes': 'notes here added by action in list view'})
+            print(f'added notes to record with id: {rec.id}')
 
     @api.depends('question_ids.score')
     def _compute_score_avg(self):

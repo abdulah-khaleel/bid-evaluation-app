@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
     <odoo>
-        
-    <report 
-    id="action_print_checklist_summary"
-    model="purchase.requisition"
-    string="Bids Checklist Summary"
-    report_type="qweb-pdf"
-    name="ak_bid_evaluation.bids_checklist_template"
-    file="ak_bid_evaluation.bids_checklist_template"
-    print_report_name="'Bids Checklist Summary - %s' % (object.name)"
-/>
+
+<record id="action_print_checklist_summary" model="ir.actions.report">
+    <field name="name">Bids Checklist Summary</field>
+    <field name="model">purchase.requisition</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">ak_bid_evaluation.bids_checklist_template</field>
+    <field name="report_file">ak_bid_evaluation.bids_checklist_template</field>
+    <field name="binding_model_id" ref="purchase_requisition.model_purchase_requisition"/>
+    <field name="binding_type">report</field>
+    <field name="print_report_name">'Bids Checklist Summary - %s' % (object.name)</field>
+</record>
 
 <record id="paperformat_checklist_summary" model="report.paperformat">
     <field name="name">Contract Details Paper Format</field>

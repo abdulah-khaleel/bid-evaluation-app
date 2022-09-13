@@ -10,11 +10,11 @@
 ################################################################################# 
 
 {
-    'name': "Bids Evaluation",   
-    'summary': "Configure bid evaluation templates and evaluate bids",   
+    'name': "Bid Evaluation",   
+    'summary': "Evaluate and score bids",   
     'description': """
-        This app allows you to evaluate indvidual bids recieved as part of a 
-        tender or a purchase agreement. The app also provides the ablitity to
+        This app allows you to evaluate individual bids recieved as part of a 
+        tender or a purchase agreement. It also provides the ablitity to
         create and use multiple evaluation templates, and setup each template
         with its own set of guidelines, checklists and evaluation/scoring criteria.
     """,   
@@ -25,7 +25,6 @@
      "license": "LGPL-3",
     'depends': ['base','purchase','purchase_requisition'],
     'data': [
-        # 'security/purchase_panel_security.xml',
         'security/ir.model.access.csv',
         'views/purchase_requisition_type.xml',
         'views/bid_evaluation_template.xml',
@@ -37,8 +36,6 @@
         'reports/bids_checklist_summary.xml',
         'reports/bids_evaluation_summary.xml',
         'reports/bids_comparative_report.xml',
-        # 'views/purchase_panel.xml',
-        # 'wizard/bid_evaluation_wizard.xml',
     ],
     # 'images': ["static/description/banner-v15.png"],
     'license': 'LGPL-3',

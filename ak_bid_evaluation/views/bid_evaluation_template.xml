@@ -62,7 +62,7 @@
     <menuitem
     id="menu_bid_evaluation_template"
     action="action_menu_bid_evaluation_template"
-    name="Bid Evaluation Template"
+    name="Bid Evaluation Templates"
     parent="purchase.menu_purchase_config"
     groups="purchase.group_purchase_user"
     sequence="4"/>

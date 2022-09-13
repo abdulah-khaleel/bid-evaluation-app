@@ -11,7 +11,7 @@
 
 {
     'name': "Purchase Panels",   
-    'summary': "Enable purchase panels to participate in bids evaluation",   
+    'summary': "Enable purchase panels to participate in bid evaluation",   
     'description': """
         This app extends the bids evaluation app by enabling purchase panels to participate in evaluating
         bids/quotations for a given tender/purchase agreement. The app allows creation of panels or

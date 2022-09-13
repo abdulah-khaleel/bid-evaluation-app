@@ -44,7 +44,7 @@
     <menuitem
     id="menu_purchase_panel"
     action="action_menu_purchase_panel"
-    name="Purchase Panel"
+    name="Purchase Panels"
     parent="purchase.menu_purchase_config"
     groups="purchase.group_purchase_user"
     sequence="3"/>

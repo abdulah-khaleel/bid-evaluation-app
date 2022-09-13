@@ -7,24 +7,22 @@ class PurchaseRequisition(models.Model):
     _inherit = "purchase.requisition"
 
     enable_evaluation = fields.Boolean('Enable Evaluation', compute='_check_for_evaluation')
-    eval_template_id = fields.Many2one('bid.evaluation.template', string="Bid Evaluation Template", ondelete="restrict")
-    evaluation_guidelines = fields.Text('Evaluation Guidelines')
-    # selected_bid_id = fields.Many2one('purchase.order', string="Selected Bid", domain="[('requisition_id', '=', id)]")
-    # selected_partner_id = fields.Many2one('res.partner', string="Selected Vendor", related = 'selected_bid_id.partner_id', store=True)
-    selected_bid_ids = fields.Many2many('purchase.order', string="Selected Bids", domain="[('requisition_id', '=', id)]")
-    selection_justification = fields.Text('Justification/Notes')
+    eval_template_id = fields.Many2one('bid.evaluation.template', string="Bid Evaluation Template", ondelete="restrict", 
+                                help="""Choose the evaluation template that you would like to use for this agreement. 
+                                        You can edit questions on individual evaluation records if needed.""")
+    evaluation_guidelines = fields.Text('Evaluation Guidelines', help="Guidelines noted here will also be listed on each bid evaluation record.")
+    selected_bid_ids = fields.Many2many('purchase.order', string="Selected Bids", domain="[('requisition_id', '=', id)]",
+                                help="Confirmed quotations will automatically be added to this list. However, you can still add quotations manually if required.")
+    selection_justification = fields.Text('Justification/Notes', help="Any remarks relevant to the bid selection and evaluation process.")
 
-    def get_bid_evaluations(self):
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id)])
-        return evaluation_records
-    
     def get_checklist_summary_titles(self):
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done','draft'])])
+        """Function used in the 'Bids Checklist Summary' report to print the first row of the checklist table"""
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done','to_approve','draft'])])
         return sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
 
     def get_checklist_summary_lines(self):
-
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', ['done', 'draft'])])
+        """Function used in the 'Bids Checklist Summary' report to print the checklist status for each of the bids of an agreement"""
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', '=', ['done','to_approve', 'draft'])])
         checklist_item_names = sorted(list(set(evaluation_records.mapped('checklist_item_ids.name'))))
         
         checklist_l = []
@@ -53,14 +51,15 @@ class PurchaseRequisition(models.Model):
         return checklist_l
 
     def get_evaluation_questions(self):
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done', 'draft'])])
+        """Function used in the Evaluation Summary report to generate the first row for the evaluation scoring table."""
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done','to_approve', 'draft'])])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         question_titles.append('Average Score')
         return question_titles
 
     def get_evaluation_summary_lines(self):
-
-        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done', 'draft'])])
+        """Function used in the Evaluation Summary report to generate the data for the evaluation scoring table."""
+        evaluation_records = self.env['bid.evaluation'].search([('requisition_id', '=', self.id),('state', 'in', ['done','to_approve', 'draft'])])
         question_titles = sorted(list(set(evaluation_records.mapped('question_ids.name'))))
         
         eval_list = []
@@ -90,6 +89,7 @@ class PurchaseRequisition(models.Model):
         return eval_list
 
     def get_agreement_lines(self):
+        """Function used in the comparative bids report to list down the purchase agreement lines"""
         # agreement_lines structure = [['Item A',3.0],['Item B', 4.0],['Item C', 10.0]]
         agreement_lines = []
         for line in self.line_ids.sorted(key=lambda r: r.product_id.id):
@@ -97,7 +97,7 @@ class PurchaseRequisition(models.Model):
         return agreement_lines
 
     def get_agreement_quotations(self):
-        
+        """Function used in the comparative bids report to list down quotation details (prices and quantities) for each of the bids"""
         # Structure of the list of prices:
         # [
             # ['Vendor Name', 'PO3111', {
@@ -135,11 +135,10 @@ class PurchaseRequisition(models.Model):
             quotations_list.append(vendor_list)
         return quotations_list
 
-    def check_number_of_lines(self):
-        if len(self.line_ids) > 5:
-            raise UserError(_("Cannot generate a comparative report for more than 5 lines."))
-        return True
-
+    # def check_number_of_lines(self):
+    #     if len(self.line_ids) > 5:
+    #         raise UserError(_("Cannot generate a comparative report for more than 5 lines."))
+    #     return True
      
     @api.depends('type_id')
     def _check_for_evaluation(self):

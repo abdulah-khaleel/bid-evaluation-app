@@ -28,8 +28,8 @@
             <form string="Bid Evaluation" duplicate="0">
                 <header name="bid_eval_form_header">
                     <button name="approve_evaluation" class="oe_highlight" string="Approve" type="object" attrs="{'invisible':[('state','!=','draft')]}"/>
-                    <button name="cancel_evaluation" string="Cancel" type="object" attrs="{'invisible':[('state','not in',['draft','done'])]}"/>
                     <button name="reset_to_draft" string="Reset to Draft" type="object" attrs="{'invisible':[('state','!=','cancel')]}"/>
+                    <button name="cancel_evaluation" string="Cancel" type="object" attrs="{'invisible':[('state','not in',['draft','done'])]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                 </header>
                 <sheet>
@@ -99,7 +99,7 @@
         </field>
     </record>
   
-    <!-- ENABLE TO CREATE A MENU TO LIST ALL EVALUATION RECORDS UNDER CONFIGURATION, PURCHASE -->
+    <!-- Enable to add a menu for evaluation records in the configuraiton tab of the purchase app-->
     <!-- <menuitem
     id="bid_evaluation_menu"
     action="bid_evaluation_action"

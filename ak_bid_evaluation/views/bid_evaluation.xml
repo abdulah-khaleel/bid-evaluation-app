@@ -57,9 +57,9 @@
                     </group>
 
                     <group string="Evaluation Checklist">
-                        <field name="checklist_item_ids" nolabel="1" widget="one2many" attrs="{'readonly':[('state','in',['done','cancel'])]}">
-                            <tree  editable="bottom" >
-                                <field name="name" string="Question/Factor" width="300px" />
+                        <field name="checklist_item_ids" nolabel="1"  widget="one2many" attrs="{'readonly':[('state','in',['done','cancel'])]}">
+                            <tree  editable="bottom" decoration-danger="(item_clear == 'no')">
+                                <field name="name" string="Item" width="300px" />
                                 <field name="item_clear"/>
                             </tree>
                     </field>
@@ -70,7 +70,7 @@
                     <notebook>
                         <page name="questions" string="Questions/Evaluation Factors">
                             <field name="question_ids" nolabel="1" widget="one2many" attrs="{'readonly':[('state','in',['done','cancel'])]}">
-                                <tree  editable="bottom" >
+                                <tree  editable="bottom" decoration-danger="(score == 0)">
                                     <field name="name" string="Question/Factor" width="300px"  />
                                     <field name="score" string="Score" width="100px"/>
                                     <field name="remarks" string="Remarks" width="500px"/>

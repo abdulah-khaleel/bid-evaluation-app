@@ -24,6 +24,7 @@ class BidEvaluation(models.Model):
     # bid_approver_ids = fields.Many2many('bid.panel.members', string="Panel Members")
     state = fields.Selection([
         ('draft', 'Draft'),
+        ('to_approve', 'To Approve'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
         ], default='draft', string="Status", tracking=True)

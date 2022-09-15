@@ -44,7 +44,7 @@
     </record>
 
    <record id="view_evaluations_of_purchase_agreement_record" model="ir.actions.act_window">
-        <field name="name">Bids Evaluation</field>
+        <field name="name">View All Evaluations</field>
         <field name="res_model">bid.evaluation</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('requisition_id', '=', active_id)]</field>

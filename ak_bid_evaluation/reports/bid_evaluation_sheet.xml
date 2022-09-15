@@ -143,7 +143,7 @@
                         </tr>
                         <tr>
                             <td>AVERAEG SCORE</td>
-                            <td><span t-esc="o.score_avg"/></td>
+                            <td><span t-esc="round(o.score_avg,2)"/></td>
                         </tr>
                     </tbody>
                 </table>

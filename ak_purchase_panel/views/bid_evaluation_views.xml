@@ -36,8 +36,8 @@
                 <xpath expr="//field[@name='checklist_item_ids']" position="replace">
                     <field name="checklist_item_ids" nolabel="1" widget="one2many" 
                         attrs="{'readonly':[('state','in',['to_approve','done','cancel'])]}">
-                            <tree  editable="bottom" >
-                                <field name="name" string="Question/Factor" width="300px" />
+                            <tree decoration-danger="item_clear == 'no'" editable="bottom" >
+                                <field name="name" string="Item" width="300px" />
                                 <field name="item_clear"/>
                             </tree>
                         </field>
@@ -46,7 +46,7 @@
                 <xpath expr="//field[@name='question_ids']" position="replace">
                     <field name="question_ids" nolabel="1" widget="one2many" 
                         attrs="{'readonly':[('state','in',['to_approve','done','cancel'])]}">
-                        <tree  editable="bottom" >
+                        <tree decoration-danger="score == 0" editable="bottom" >
                             <field name="name" string="Question/Factor" width="300px"  />
                             <field name="score" string="Score" width="100px"/>
                             <field name="remarks" string="Remarks" width="500px"/>

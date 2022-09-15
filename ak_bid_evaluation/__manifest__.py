@@ -2,7 +2,7 @@
 ################################################################################# 
 #
 #    Author: Abdullah Khalil. Copyrights (C) 2022-TODAY reserved. 
-#
+#    Email: abdulah.khaleel@gmail.com
 #    You may use this app as per the rules outlined in the GNU LESSER
 #    GENERAL PUBLIC LICENSE (LGPL v3), Version 3. 
 #    See <http://www.gnu.org/licenses/> for more detials.

@@ -20,8 +20,6 @@ class BidEvaluation(models.Model):
         ('allowed', 'Allowed'),
         ('not_allowed', 'Not Allowed'),
         ], compute="_check_questions_edit_access")
-    # is_winning_bid = fields.Boolean('Winning Bid', copy=False) 
-    # winner_selection_complete = fields.Boolean('selection process complete', default=True)
 
     def create_activity(self):
         self.ensure_one()

@@ -20,9 +20,6 @@
                                 <div class="text-muted">
                                     Enable this to use purchase panels when evaluating bids for purchase agreements (Requires Purchase Agreements) 
                                 </div>
-                                <!-- <div class="content-group" attrs="{'invisible': [('module_purchase_requisition', '=', False)]}">
-                                    <div id="use_purchase_requisition"/>
-                                </div> -->
                             </div>
                 </div>
            </xpath>

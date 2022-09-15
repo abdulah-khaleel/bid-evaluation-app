@@ -34,9 +34,6 @@ class PurchaseOrder(models.Model):
                 'question_ids': self.get_question_ids(),
                 'bid_approver_ids': self.get_panel_members() 
             })
-            # bid_evaluation_record.sudo().write({
-            # 'bid_approver_ids': self.get_panel_members() 
-            # })
             self.write({'has_evaluation': True})
             return self.get_bid_evaluation_record()
 

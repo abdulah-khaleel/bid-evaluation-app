@@ -21,25 +21,6 @@
     </field>
    </record> 
 
-    <record id="action_2_add_remarks_to_evals" model="ir.actions.server">
-        <field name="name">Create Remarks IN Evals</field>
-        <field name="model_id" ref="ak_bid_evaluation.model_bid_evaluation"/>
-        <field name="binding_model_id" ref=""/>
-        <field name='groups_id' eval="[(4, ref('account.group_account_invoice'))]"/>
-        <field name="state">code</field>
-        <field name="code">
-            if records:
-                action = records.action_create_invoice()
-        </field>
-    </record>
-
-    <record id="add_remarks_to_evaluations" model="ir.actions.server">
-        <field name="name">Add remarks to evals</field>
-        <field name="model_id" ref="ak_bid_evaluation.model_bid_evaluation"/>
-        <field name="state">code</field>
-        <field name="code">action = model.add_remarks()</field>
-    </record>
-
     <record id="bid_evaluation_form_view" model="ir.ui.view">
         <field name="name">bid.evaluation.form.view</field>
         <field name="model">bid.evaluation</field>
@@ -118,6 +99,7 @@
         </field>
     </record>
   
+    <!-- ENABLE TO CREATE A MENU TO LIST ALL EVALUATION RECORDS UNDER CONFIGURATION, PURCHASE -->
     <!-- <menuitem
     id="bid_evaluation_menu"
     action="bid_evaluation_action"
@@ -125,6 +107,5 @@
     parent="purchase.menu_purchase_config"
     groups="purchase.group_purchase_user"
     sequence="6"/> -->
- 
 
 </odoo>

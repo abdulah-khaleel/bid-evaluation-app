@@ -6,9 +6,6 @@
         <field name="model">purchase.requisition</field>
         <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
         <field name="arch" type="xml">
-            <!-- <xpath expr="//field[@name='origin']" position="after">
-                <field name="eval_template_id" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}"/>
-            </xpath> -->
             <xpath expr="//page[@name='products']" position="after">
                 <page string="Bid Evaluation" name="bid_evaluation" attrs="{'invisible': [('enable_evaluation', '=', False)],'required': [('enable_evaluation', '=', True),('state','=','in_progress')],'readonly': [('state', 'not in', ['draft','ongoing','in_progress'])]}">
                     <group name="eval-guidelines" string="Evaluation Guidelines">
@@ -45,14 +42,6 @@
             </xpath>
         </field>
     </record>
-
-     <!-- <record id="open_agreement_evaluations" model="ir.actions.act_window">
-        <field name="name">View Evaluations</field>
-        <field name="res_model">bid.evaluation</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('requisition_id', '=', active_id)]</field>
-        <field name="binding_model_id" ref="model_purchase_requisition"/>
-    </record> -->
 
    <record id="view_evaluations_of_purchase_agreement_record" model="ir.actions.act_window">
         <field name="name">Bids Evaluation</field>

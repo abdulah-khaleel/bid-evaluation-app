@@ -36,7 +36,6 @@
         'reports/bids_evaluation_summary.xml',
         'reports/bids_comparative_report.xml',
     ],
-    # 'images': ["static/description/banner-v15.png"],
     'license': 'LGPL-3',
     'application': False,
     'installable': True,

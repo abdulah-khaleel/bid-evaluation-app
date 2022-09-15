@@ -43,10 +43,6 @@ class BidEvaluation(models.Model):
         else:
             self.write({'state': 'done'})
 
-    def add_remarks(self):
-        for rec in self:
-            rec.write({'notes': 'notes here added by action in list view'})
-            print(f'added notes to record with id: {rec.id}')
 
     @api.depends('question_ids.score')
     def _compute_score_avg(self):

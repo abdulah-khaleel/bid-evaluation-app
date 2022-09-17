@@ -1,7 +1,7 @@
  # -*- coding: utf-8 -*-
 
 from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError 
+from odoo.exceptions import ValidationError, UserError
 
 
 class BidEvaluation(models.Model):
@@ -41,6 +41,8 @@ class BidEvaluation(models.Model):
      
     def submit_evaluation(self):
         self.ensure_one()
+        if len(self.bid_approver_ids) == 0:
+            raise UserError(_("Please add at least one panel member to review this evaluation."))
         for question in self.question_ids:
             if question.score == 0:
                 raise ValidationError(

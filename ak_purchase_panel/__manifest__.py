@@ -21,7 +21,7 @@
     'author': "Abdullah Khalil",
     'website': "https://github.com/abdulah-khaleel",
     'category': 'Purchase',
-    'version': '14.0.0.0',
+    'version': '15.0.0.0',
      "license": "LGPL-3",
     'depends': ['ak_bid_evaluation'],
     'data': [

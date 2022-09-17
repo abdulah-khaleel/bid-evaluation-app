@@ -12,7 +12,6 @@ class PurchasePanel(models.Model):
     name = fields.Char(string="Panel Title", required=True)
     member_ids = fields.Many2many('res.users', string="Panel Members")
 
-    # at save time, check if there is at least one user in the panel:
     @api.constrains('member_ids')
     def _check_panel_members(self):
         if len(self.member_ids) < 1:

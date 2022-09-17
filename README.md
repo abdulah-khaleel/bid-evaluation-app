@@ -31,8 +31,8 @@ The app is tested on Odoo versions `14.0` and `15.0` for both community and ente
 
 ## Roadmap
 
+- Restrict bids until bid submission deadline.
 - Score indvidual bids
--
 
 ## Issues
 
